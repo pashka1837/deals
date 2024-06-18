@@ -1,6 +1,12 @@
+/* eslint-disable no-undef */
 import express from "express";
 import pipedrive from "pipedrive";
 import "dotenv/config";
+
+import * as url from "url";
+import path from "path";
+// const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const PORT = process.env.PORT;
 
@@ -9,12 +15,20 @@ let apiToken = defaultClient.authentications.api_key;
 apiToken.apiKey = process.env.API_KEY;
 
 const app = express();
+console.log(path.join(__dirname, "./dist/index.html"));
+
+app.use("/static", express.static(path.join(__dirname, "dist/assets")));
+
+app.all("/", async (req, res) => {
+  console.log("all");
+  res.sendFile(path.join(__dirname, "./dist/index.html"));
+});
 
 app.get("/", async (req, res) => {
   const api = new pipedrive.DealsApi(defaultClient);
   const deals = await api.getDeals();
   console.log(deals);
-  res.send(deals);
+  res.send("get deals");
 });
 
 app.post("/deal", async (req, res) => {
@@ -40,9 +54,9 @@ app.post("/deal", async (req, res) => {
     };
     const response = await api.addDeal(data);
     console.log("Deal was added successfully!", response);
-    res.send("success");
+    res.send({ message: "succes" });
   } catch (err) {
-    const errorToLog = err.context?.body || err;
+    // const errorToLog = err.context?.body || err;
     res.status(404).send("failed");
   }
 });
