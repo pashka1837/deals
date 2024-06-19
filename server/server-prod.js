@@ -12,17 +12,14 @@ import get_index from "./endpoints/index/get-index.js";
 import post_deal from "./endpoints/deals/post-deal.js";
 import logger from "./middleware/logger.js";
 
+// import * as url from "url";
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
 const PORT = process.env.PORT;
 
 const app = express();
 
 app.use(logger);
-app.use(
-  express.static(
-    path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist/client"),
-    { index: false }
-  )
-);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -32,6 +29,11 @@ app.use(
     keys: ["key1"],
   })
 );
+
+app.use(
+  express.static(path.resolve(__dirname, "../dist/client"), { index: false })
+);
+
 app.use(api_client);
 
 // z
@@ -59,7 +61,10 @@ app.use(api_client);
 // next();
 //   }
 // });
-
+// const some = await readFile("./dist/client/index.html", {
+//   encoding: "utf8",
+// });
+// console.log(some);
 app.get("/callback", get_auth);
 
 app.get("/", get_index);
