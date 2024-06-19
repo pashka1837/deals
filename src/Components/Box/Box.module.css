@@ -1,0 +1,17 @@
+.box {
+  border-radius: 10px;
+  padding: 30px;
+  /* border-left: 1px solid grey;
+  border-right: 1px solid grey; */
+
+  box-shadow: -1px 3px 3px lightgray, 1px 0 3px lightgray;
+
+  /* color: grey; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* align-items: start; */
+  width: 500px;
+  height: auto;
+}

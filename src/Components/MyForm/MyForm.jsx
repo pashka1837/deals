@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+import styles from "./MyForm.module.css"
+
+import ClientCard from "../Cards/ClientCard";
+import JobCard from "../Cards/JobCard";
+import LocationCard from "../Cards/LocationCard";
+import ScheduledCard from "../Cards/ScheduledCard";
+
+
+
+
 export default function MyForm() {
   const [submitted, setSub]=useState(false)
   const [isError, setError]=useState(false)
@@ -45,11 +55,20 @@ export default function MyForm() {
     {isError && <h2>Oops,backend error</h2>}
     {submitted
       ? (<h1>have been submitted</h1>)
-      :( <form onSubmit={handleSubmit}>
-        <input type="text" name="" id="" />
-        <button type="submit">submit</button>
-    </form>)
+      :(      
+      <form 
+      className={styles.myForm}
+      onSubmit={handleSubmit}>
 
+        <ClientCard />
+        <JobCard />
+        <LocationCard />
+        <ScheduledCard/>
+    
+
+    
+    </form>
+    )
     }
     </>
     
