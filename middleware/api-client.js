@@ -1,6 +1,6 @@
 import pipedrive from "pipedrive";
 
-export default async function apiClient(req, _, next) {
+export default async function api_client(req, _, next) {
   const apiClient = new pipedrive.ApiClient();
   let oauth2 = apiClient.authentications.oauth2;
   oauth2.clientId = process.env.CLIENT_ID || "";

@@ -6,15 +6,17 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cookieSession from "cookie-session";
 
-import apiClient from "./middleware/api-client.js";
+import api_client from "./middleware/api-client.js";
 import get_auth from "./endpoints/callback/get-auth.js";
 import get_index from "./endpoints/index/get-index.js";
 import post_deal from "./endpoints/deals/post-deal.js";
+import logger from "./middleware/logger.js";
 
 const PORT = process.env.PORT;
 
 const app = express();
 
+app.use(logger);
 app.use(
   express.static(
     path.resolve(path.dirname(fileURLToPath(import.meta.url)), "dist/client"),
@@ -30,7 +32,33 @@ app.use(
     keys: ["key1"],
   })
 );
-app.use(apiClient);
+app.use(api_client);
+
+// z
+
+//   try {
+//     const api_res = await fetch({
+//       method: "POST",
+//       url: "https://oauth.pipedrive.com/oauth/token",
+//       headers: {
+//         Authorization: `Basic ${Buffer.from(
+//           process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
+//         ).toString("base64")}`,
+//         "content-type": "application/x-www-form-urlencoded",
+//       },
+//       body: JSON.stringify({
+//         grant_type: "refresh_token",
+//         refresh_token,
+//       }),
+//     });
+//     console.log(api_res);
+//   } catch (error) {
+//     throw new Error("Getting new token from refresh token failed");
+//   }
+// }
+// next();
+//   }
+// });
 
 app.get("/callback", get_auth);
 
