@@ -12,12 +12,17 @@ export default function ScheduledCard() {
 
     return (
         <Box title="Service Location">
-        <MyTextInput placeHolder="" required={true} type="date" /> 
+        <MyTextInput 
+        placeHolder="" 
+        required={true} 
+        type="date" 
+        name='Start Date'/> 
+        
         <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px"}}>
-        <MySelect options={start_time_options} name='Area' />
-        <MySelect options={end_time_options} name='Area' />
+        <MySelect options={start_time_options} name='Job start time' />
+        <MySelect options={end_time_options} name='Job end time' />
         </div>      
-        <MySelect options={tech_options} name='Area' />
+        <MySelect options={tech_options} name='Technician' />
 
         </Box>
       )

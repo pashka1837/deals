@@ -10,7 +10,10 @@ export default function JobCard() {
     <Box title="Job Type">
       <MySelect options={job_type_options} name='Job Type' />
       <MySelect options={job_source_options} name='Job Source' />
-      <MyTextField name='Job Desc' placeHolder='Job Description (optional)' required={false} />
+      <MyTextField 
+      name='Job Desc' 
+      placeHolder='Job Description (optional)' 
+      required={false} />
     </Box>
   )
 }
