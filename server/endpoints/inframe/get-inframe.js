@@ -1,24 +1,23 @@
-import error_response from "../../utils/error-handler.js";
-import path from "path";
-import { fileURLToPath } from "url";
+import error_response from '../../utils/error-handler.js';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default async function get_inframe(req, res) {
-  console.log(req.query);
-  const { userId, companyId } = req.query;
+	const {userId, companyId} = req.query;
 
-  try {
-    const path_to_template = path.resolve(
-      __dirname,
-      "../../../build/index.html"
-    );
+	try {
+		const path_to_template = path.resolve(
+			__dirname,
+			'../../../build/index.html',
+		);
 
-    res.cookie("userId", userId);
-    res.cookie("companyId", companyId);
+		res.cookie('userId', userId);
+		res.cookie('companyId', companyId);
 
-    res.sendFile(path_to_template);
-  } catch (error) {
-    error_response(res, "Server error, couldn't load inframe page", error, 500);
-  }
+		res.sendFile(path_to_template);
+	} catch (error) {
+		error_response(res, 'Server error, couldn\'t load inframe page', error, 500);
+	}
 }

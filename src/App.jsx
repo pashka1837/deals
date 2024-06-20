@@ -1,11 +1,9 @@
-import './App.css'
-import MyForm from './Components/MyForm/MyForm'
+import MyForm from './Components/MyForm/MyForm';
 
 function App() {
-
-  return (
-    <MyForm />
-  )
+	return (
+		<MyForm />
+	);
 }
 
-export default App
+export default App;

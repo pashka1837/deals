@@ -1,13 +1,13 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 export default function check_jwt() {
-  const secret = process.env.CLIENT_SECRET || "";
+	const secret = process.env.CLIENT_SECRET || '';
 
-  return function (req, _, next) {
-    const { token } = req.query;
+	return function (req, _, next) {
+		const {token} = req.query;
 
-    jwt.verify(token, secret);
+		jwt.verify(token, secret);
 
-    next();
-  };
+		next();
+	};
 }
