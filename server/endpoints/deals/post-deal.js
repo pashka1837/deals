@@ -4,13 +4,20 @@ import {
   get_deal_fields,
   get_deal_obj,
 } from "../../api/deal-api.js";
+import { getClientInstallation } from "../../../db/db.js";
 
 export default async function post_deal(req, res) {
   const formJson = req.body;
-  if (!formJson) res.status(404).send({ ok: false, message: "Emty form" });
 
+  if (!formJson) res.status(404).send({ ok: false, message: "Empty form" });
+
+  const { userId, companyId } = req.query;
   try {
-    req.apiClient.authentications.oauth2.accessToken = req.session.accessToken;
+    const user = await getClientInstallation(userId, companyId);
+    const { access_token, refresh_token } = user;
+
+    req.apiClient.authentications.oauth2.accessToken = access_token;
+    req.apiClient.authentications.oauth2.refreshToken = refresh_token;
 
     const api_client = req.apiClient;
 
@@ -20,11 +27,13 @@ export default async function post_deal(req, res) {
 
     // console.log(new_deal);
 
-    await add_new_deal(new_deal, api_client);
+    const new_deal_id = await add_new_deal(new_deal, api_client);
+    console.log(new_deal_id);
 
-    res.status(201).send({ ok: true, message: "Successfuly added a deal" });
+    res
+      .status(201)
+      .send({ ok: true, message: "Successfuly added a deal", id: new_deal_id });
   } catch (error) {
-    // console.log("error", error);
     error_response(
       res,
       "Server error, couldn't post deal to pipedrive",

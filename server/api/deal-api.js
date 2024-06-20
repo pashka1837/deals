@@ -42,7 +42,9 @@ async function get_deal_obj(form_json, exising_fields, api_client) {
 
 async function add_new_deal(new_deal_obj, api_client) {
   const dealsApi = new pipedrive.DealsApi(api_client);
-  await dealsApi.addDeal(new_deal_obj);
+  const deal_api_res = await dealsApi.addDeal(new_deal_obj);
+  const { data } = deal_api_res;
+  return data.id;
 }
 
 export { get_deal_fields, add_deal_field, get_deal_obj, add_new_deal };

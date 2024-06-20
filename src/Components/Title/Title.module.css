@@ -1,0 +1,21 @@
+.myTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.link {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(85, 85, 85);
+}
+
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

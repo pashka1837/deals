@@ -8,19 +8,11 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: grey;
+  color: rgb(85, 85, 85);
   width: 100vw;
   display: grid;
   justify-content: center;
 }
-
-button:hover {
-  border-color: #646cff;
-}
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
 input:focus-visible,
 select:focus-visible,
@@ -34,6 +26,7 @@ textarea:focus-visible {
   border: 2px solid lightgray;
   height: 40px;
   font-size: 1rem;
+  min-width: 160px;
 }
 
 .inputField::placeholder {
