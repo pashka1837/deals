@@ -21,9 +21,9 @@ app.use(logger);
 
 app.use(express.json());
 
-app.use('/assets', express.static(path.resolve(__dirname, '../build/assets')));
-
 app.use(api_client);
+
+app.use('/assets', express.static(path.resolve(__dirname, '../build/assets')));
 
 app.get('/callback', get_auth);
 
