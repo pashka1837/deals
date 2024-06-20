@@ -1,4 +1,4 @@
-import { readFile } from "fs/promises";
+// import { readFile } from "fs/promises";
 import error_response from "../../utils/error-handler.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -16,17 +16,22 @@ export default async function get_index(req, res) {
   try {
     const path_to_template = path.resolve(
       __dirname,
-      "../../../dist/client/index.html"
+      "../../../build/index.html"
     );
+    res.sendFile(path_to_template);
 
-    const template = await readFile(path_to_template, {
-      encoding: "utf8",
-    });
-    const { render } = await import("../../../dist/server/entry-server.js");
+    // const path_to_template = path.resolve(
+    //   __dirname,
+    //   "../../../dist/client/index.html"
+    // );
 
-    const html = template.replace(`<!--outlet-->`, render);
+    // const template = await readFile(path_to_template, {
+    //   encoding: "utf8",
+    // });
+    // const { render } = await import("../../../dist/server/entry-server.js");
 
-    res.status(200).set({ "Content-Type": "text/html" }).end(html);
+    // const html = template.replace(`<!--outlet-->`, render);
+    // res.status(200).set({ "Content-Type": "text/html" }).end(html);
   } catch (error) {
     error_response(res, "Server error, couldn't load static page", error, 500);
   }

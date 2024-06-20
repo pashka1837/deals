@@ -11,8 +11,9 @@ import get_auth from "./endpoints/callback/get-auth.js";
 import get_index from "./endpoints/index/get-index.js";
 import post_deal from "./endpoints/deals/post-deal.js";
 import logger from "./middleware/logger.js";
+import check_jwt from "./middleware/jwt-check.js";
+import get_inframe from "./endpoints/inframe/get-inframe.js";
 
-// import * as url from "url";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const PORT = process.env.PORT;
@@ -30,44 +31,18 @@ app.use(
   })
 );
 
-app.use(
-  express.static(path.resolve(__dirname, "../dist/client"), { index: false })
-);
+app.use("/assets", express.static(path.resolve(__dirname, "../build/assets")));
+// app.use(
+//   express.static(path.resolve(__dirname, "../dist/client"), { index: false })
+// );
 
 app.use(api_client);
 
-// z
-
-//   try {
-//     const api_res = await fetch({
-//       method: "POST",
-//       url: "https://oauth.pipedrive.com/oauth/token",
-//       headers: {
-//         Authorization: `Basic ${Buffer.from(
-//           process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
-//         ).toString("base64")}`,
-//         "content-type": "application/x-www-form-urlencoded",
-//       },
-//       body: JSON.stringify({
-//         grant_type: "refresh_token",
-//         refresh_token,
-//       }),
-//     });
-//     console.log(api_res);
-//   } catch (error) {
-//     throw new Error("Getting new token from refresh token failed");
-//   }
-// }
-// next();
-//   }
-// });
-// const some = await readFile("./dist/client/index.html", {
-//   encoding: "utf8",
-// });
-// console.log(some);
 app.get("/callback", get_auth);
 
 app.get("/", get_index);
+
+app.get("/inframe", check_jwt(), get_inframe);
 
 app.post("/deal", post_deal);
 
